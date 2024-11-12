@@ -1,39 +1,86 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Player Animation
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A simple and powerful Flutter animation widget that lets you create animations without dealing with AnimationController directly.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- 🎯 Simple API for creating animations
+- 🔄 Support for loop animations
+- ⏯️ Play/Pause control
+- ⚡ Zero boilerplate code
+- 📦 No need to use SingleTickerProviderStateMixin
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add this to your package's `pubspec.yaml` file:
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  player_animation: ^0.0.1
 ```
 
-## Additional information
+##Usage
+Here's a simple example that animates a container's size:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+AnimationPlayer(
+  begin: 100,
+  end: 200,
+  duration: const Duration(seconds: 1),
+  play: true,
+  loop: true,
+  builder: (context, controller, child, animation) {
+    return Center(
+      child: Container(
+        width: animation.value,
+        height: animation.value,
+        color: Colors.red,
+      ),
+    );
+  },
+)
+```
+
+## Parameters
+- begin: Starting value of the animation (default: 0)
+- end: Ending value of the animation (default: 100)
+- play: Controls whether the animation is playing or paused
+- loop: If true, animation will repeat indefinitely
+- duration: Length of the animation
+- builder: Builder function that returns the animated widget
+# Examples
+Pulsing Container
+```dart
+AnimationPlayer(
+  begin: 50,
+  end: 150,
+  duration: const Duration(milliseconds: 800),
+  play: true,
+  loop: true,
+  builder: (context, controller, child, animation) {
+    return Container(
+      width: animation.value,
+      height: animation.value,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  },
+)
+```
+Fade Animation
+```dart 
+AnimationPlayer(
+  begin: 0,
+  end: 1,
+  duration: const Duration(seconds: 2),
+  play: true,
+  builder: (context, controller, child, animation) {
+    return Opacity(
+      opacity: animation.value,
+      child: YourWidget(),
+    );
+  },
+)
+``` 
